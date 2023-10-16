@@ -21,7 +21,7 @@ const typeDefs = `#graphql
   }
 
   type Query {
-    book: Book
+    book(title: String): Book
   }
 `;
 
@@ -41,8 +41,8 @@ const books = [
 const resolvers = {
   Query: {
     books: () => books,
-    book: (name: string) => {
-      books.filter((book) =>  book.title == name )[0]
+    book(parent: any, args: any, ctx: any, info: any) {
+      return books.filter((book) =>  book.title == args.title )[0];
     },
   },
 };
